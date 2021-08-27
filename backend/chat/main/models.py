@@ -1,4 +1,3 @@
-import json
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
@@ -18,13 +17,6 @@ class Chat(models.Model):
 
     def __str__(self):
         return str(self.pk)
-
-    def get_messages(self):
-        return self.messages.filter(is_removed=False).order_by('timestamp')
-
-    def get_last_message(self):
-        last_message = self.get_messages().values('user_id', 'text').last()
-        return json.dumps(last_message)
 
 
 class File(models.Model):

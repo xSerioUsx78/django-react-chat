@@ -2,13 +2,18 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
-from .models import Chat, Message
+from .models import Message
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
+
+    """
+    i tried to keep the project as simple as it can be
+    """
+
     async def connect(self):
         self.chat_id = self.scope['url_route']['kwargs']['chat_id']
-        self.chat_group_id = 'chat_%s' % self.chat_id
+        self.chat_group_id = f'chat_{self.chat_id}'
 
         # Join room group
         await self.channel_layer.group_add(
@@ -50,7 +55,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def fetch_messages(self, event):
         messages = event['messages']
 
-        # Send message to WebSocket
         await self.send(text_data=json.dumps({
             'messages': messages,
             'command': 'messages',
@@ -73,7 +77,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 'image': image
             }
 
-            # Send message to room group
             await self.send_message_to_room_group(room_group_message)
         elif command == 'fetch_messages':
             messages = await self.fetch_message()
