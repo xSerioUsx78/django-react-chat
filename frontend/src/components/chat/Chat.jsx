@@ -19,7 +19,7 @@ const Chat = ({ match }) => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
-  const scrollToBottom = () => {
+  const handleScrollToBottom = () => {
     scrollMessagesRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -29,7 +29,7 @@ const Chat = ({ match }) => {
 
   const handleFetchMessages = useCallback((messages) => {
     setMessages(messages);
-    scrollToBottom();
+    handleScrollToBottom();
   }, []);
 
   const handleNewMessage = useCallback(
@@ -39,7 +39,7 @@ const Chat = ({ match }) => {
       let contactsCopy = [...contacts];
       contactsCopy[contactIndex].messages = message;
       setContacts(contactsCopy);
-      scrollToBottom();
+      handleScrollToBottom();
     },
     [contacts, pk]
   );
