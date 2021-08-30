@@ -23,7 +23,6 @@ incremental==21.3.0
 msgpack==1.0.2
 phonenumbers==8.12.28
 Pillow==8.3.1
-pkg_resources==0.0.0
 psycopg2==2.9.1
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
