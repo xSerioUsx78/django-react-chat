@@ -2,6 +2,6 @@
 
 A simple chat application using websocket with django and react
 
-Not production ready!
+Production ready!
 
-Production mode soon...
+Heroku deployment instructions soon...
